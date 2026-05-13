@@ -7,37 +7,21 @@ const OpenAI = require('openai');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const apiKey = process.env.OPENAI_API_KEY;
+const apiKey = process.env.OPENROUTER_API_KEY;
 if (!apiKey) {
-  console.warn('⚠️ OPENAI_API_KEY não definida. Defina no arquivo .env para habilitar o chat.');
+  console.warn('⚠️ OPENROUTER_API_KEY não definida. Defina no arquivo .env ou nos Secrets do Replit para habilitar o chat.');
 }
 
-const client = new OpenAI({ apiKey });
+const client = new OpenAI({
+  apiKey,
+  baseURL: 'https://openrouter.ai/api/v1',
+  defaultHeaders: {
+    'HTTP-Referer': process.env.SITE_URL || 'https://github.com/erick98728/TechStore',
+    'X-Title': process.env.APP_NAME || 'Rubens'
+  }
+});
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.post('/chat', async (req, res) => {
-  try {
-    const { message } = req.body;
-
-    if (!message || typeof message !== 'string') {
-      return res.status(400).json({ error: 'Mensagem inválida.' });
-    }
-
-    if (!apiKey) {
-      return res.status(500).json({ error: 'Servidor sem chave da OpenAI configurada.' });
-    }
-
-    const response = await client.responses.create({
-      model: process.env.OPENAI_MODEL || 'gpt-4.1-mini',
-      input: [
-        {
-          role: 'system',
-          content: [
-            {
-              type: 'input_text',
-              text: `
+const SYSTEM_PROMPT = `
 Você é Rubens, um assistente virtual sobre o Lggj e sua comunidade.
 
 Identidade do assistente:
@@ -270,24 +254,39 @@ Formato ideal de resposta:
 - Quando a pergunta for simples, responda em 2 a 5 linhas.
 - Quando pedirem lista, organize em tópicos.
 - Quando houver incerteza, deixe claro.
-`
-            }
-          ]
+`;
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.post('/chat', async (req, res) => {
+  try {
+    const { message } = req.body;
+
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ error: 'Mensagem inválida.' });
+    }
+
+    if (!apiKey) {
+      return res.status(500).json({ error: 'Servidor sem chave do OpenRouter configurada.' });
+    }
+
+    const response = await client.chat.completions.create({
+      model: process.env.OPENROUTER_MODEL || 'openrouter/free',
+      messages: [
+        {
+          role: 'system',
+          content: SYSTEM_PROMPT
         },
         {
           role: 'user',
-          content: [
-            {
-              type: 'input_text',
-              text: message
-            }
-          ]
+          content: message
         }
       ],
       temperature: 0.7
     });
 
-    const reply = response.output_text?.trim();
+    const reply = response.choices?.[0]?.message?.content?.trim();
 
     if (!reply) {
       return res.status(502).json({ error: 'Não foi possível gerar uma resposta no momento.' });
@@ -295,7 +294,7 @@ Formato ideal de resposta:
 
     return res.json({ reply });
   } catch (error) {
-    console.error('Erro no /chat:', error);
+    console.error('Erro no /chat:', error?.response?.data || error);
     return res.status(500).json({ error: 'Erro ao processar a mensagem.' });
   }
 });
