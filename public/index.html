@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atendimento TechStore</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="hero">
+      <div class="container">
+        <h1>Atendimento TechStore</h1>
+        <p>
+          Tire dúvidas, peça recomendações e receba suporte rápido com nosso
+          chatbot inteligente.
+        </p>
+        <button id="open-chat-cta" class="cta">Abrir atendimento</button>
+      </div>
+    </main>
+
+    <button id="chat-toggle" class="chat-toggle" aria-label="Abrir chat">
+      💬
+    </button>
+
+    <section id="chat-widget" class="chat-widget hidden" aria-live="polite">
+      <header class="chat-header">
+        <div>
+          <strong>Atendimento Online</strong>
+          <small>Resposta em instantes</small>
+        </div>
+        <button id="chat-close" class="chat-close" aria-label="Fechar chat">✕</button>
+      </header>
+
+      <div id="chat-messages" class="chat-messages">
+        <div class="message bot">
+          Olá! 👋 Eu sou seu assistente virtual da TechStore. Como posso ajudar?
+        </div>
+      </div>
+
+      <form id="chat-form" class="chat-form">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="Digite sua mensagem..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
