@@ -45,29 +45,70 @@ Linha do tempo:
 - 2023: há registro indireto em perfil profissional mencionando SETI 2023 e conteúdos como Fundamentos de Informática, Lógica de Programação, Web Design e Interfaces Gráficas. Não foram localizados datas, cartaz ou lista oficial de convidados.
 - 2024: há confirmação por participantes. Registro de organizador indica realização na semana de 12 de agosto. Fernando Capovilla registrou palestra na SeTI 2024 com o tema "O Futuro do Trabalho".
 - 2025: confirmação oficial forte. A escola publicou que a SETI ocorreu de 11 a 15 de agosto de 2025, planejada, organizada e executada pelas 4ªs séries A e B de Informática.
-- 2026: há indicação de continuidade. Foi localizado perfil "SETI 2026" com descrição da Semana de Estudos Técnicos em Informática do Leandro Franceschini, mas sem registro de edição concluída até 13/05/2026.
+- 2026: agora há documentos oficiais anexados. A SETI 2026 está prevista para 10/08/2026 a 14/08/2026, no auditório da escola. A organização é responsabilidade das turmas 4ª Informática A, 4ª Informática B e 4ª Informática C, com orientação do Prof. Luís Guilherme.
+
+SETI 2026, dados oficiais adicionados:
+- Data: 10/08/2026 a 14/08/2026.
+- Local: Auditório da Escola Municipal Dr. Leandro Franceschini.
+- A semana ocorre próxima ao Dia da Informática, comemorado em 15 de agosto.
+- Responsáveis pela organização: alunos da 4ª Informática A, 4ª Informática B e 4ª Informática C.
+- Orientação aos alunos: Prof. Luís Guilherme.
+- Representantes/comissão de organização: Ana Clara Magalhães e Diogo Monteiro, da 4ª Informática A; Julia Carvalho e Vinicius Aparecido Batista, da 4ª Informática B; Bianca de Brito Leite e Gustavo Alves de Oliveira, da 4ª Informática C.
+- Objetivos: incentivar e promover conhecimentos da área de tecnologia de maneira dinâmica e atrativa; desenvolver afinidade e relacionamento entre alunos e palestrantes; proporcionar um momento diferenciado para que os alunos estejam em ambiente de aprendizagem diversificado.
+- Materiais necessários: projetor multimídia, caixa de som, microfones e Wi-Fi para o palestrante.
+- Organização diária: alunos vão para a sala na primeira aula, aguardam a organização chamar, deslocam-se ao auditório às 19h20, palestra começa às 19h30, intervalo de 21h15 a 21h25, gincanas após o intervalo e retorno à sala às 22h40, permanecendo até 22h50 enquanto o auditório é organizado.
+- Premiação: 1º lugar recebe uma noite de filme no auditório da escola. 2º e 3º lugar ainda aparecem em análise pela organização. Sugestão de data para premiação da turma vencedora: 26/08/2026.
+- Arrecadação: contribuição de R$ 90,00 de alguns alunos, com média de 60 contribuintes, das turmas 4ª Informática A, B e C.
+
+Gincanas e avaliação da SETI 2026:
+- As turmas iniciam com 0 pontos.
+- Gincanas previstas: Passa ou Repassa, Labirinto, Quem Sou Eu?, Show da Tecnologia e Perguntas sobre o tema da palestra do dia.
+- Passa ou Repassa: jogo de perguntas e respostas entre salas, em equipes de 3 alunos, com 10 perguntas em níveis de dificuldade.
+- Labirinto: um aluno executa comandos apresentados pela turma; há níveis fácil, médio e difícil, com 10 labirintos por nível e 60 segundos para sair.
+- Quem Sou Eu?: participante descobre, por descrição do mediador, objetos de informática, softwares, sistemas ou tecnologias. Há 30 perguntas.
+- Show da Tecnologia: jogo baseado no Show do Milhão, com perguntas sobre tecnologia da informação. Participantes têm 20 segundos para responder; cada turma tem 5 tentativas com 5 alunos diferentes.
+- Perguntas sobre a palestra do dia: perguntas relacionadas à palestra ministrada; a turma que responder primeiro e corretamente pontua.
+- Penalizações: dormir durante palestra ou atividade oficial (-95), conduta desrespeitosa ou linguagem ofensiva (-90), uso de celular (-80), conduta inadequada no deslocamento (-80), descumprimento do uniforme (-60), conversas paralelas (-50), deixar local sujo (-50), descumprir orientações da organização (-30) e ausência no dia (-10).
+
+Palestras e temas da SETI 2026:
+- 10/08/2026, 1ª A/B Informática, 82 alunos: tema "IA: benefícios e malefícios na atualidade". Palestrante aguardando retorno/confirmação. Horário: 19h30 às 21h15.
+- 11/08/2026, 2ª A/B/C Informática, 109 alunos: tema "Diversidade da informática: quais áreas seguir?". Palestrante aguardando retorno/confirmação. Horário: 19h30 às 21h15.
+- 12/08/2026, 3ª A/B/C Informática, 107 alunos: palestrante Guilherme Rufino, tema "Tecnologia empresarial". Horário: 19h30 às 21h15.
+- 13/08/2026, 1ª, 2ª e 3ª Informática, 114 alunos: tema "A tecnologia para o mundo". Palestrante aguardando retorno/confirmação. Horário: 19h30 às 21h15.
+- 14/08/2026, 4ª A/B/C Informática, 92 alunos: tema "Segmentos para ingressar ao mercado". Palestrante aguardando retorno/confirmação. Horário: 19h30 às 21h15.
+
+Cronograma de organização da SETI 2026:
+- Decoração: equipe de decoração, no auditório e corredor de acesso, de 10/08 a 14/08, com balões e materiais reciclados, em orçamento.
+- Lembrança para palestrantes: equipe de decoração, no auditório, de 10/08 a 14/08, entregue ao final de cada palestra, em orçamento.
+- Financeiro: controle de gastos e arrecadação, feito remotamente pela equipe do financeiro, de 02/03 a 26/08, por conta em banco digital e planilha.
+- Orçamentos: equipe do financeiro realiza orçamentos e compras de materiais, remotamente, de 02/03 a 26/08.
+- Supervisão: equipe de supervisão controla alunos nas salas, corredores e auditório, de 10/08 a 14/08.
+- Gincanas: equipe da gincana realiza atividades no auditório de 10/08 a 14/08, relacionadas à tecnologia, para definir a turma campeã.
 
 Temas identificados:
 - Tecnologia, carreira e inspiração foi o mote divulgado em 2025.
-- Carreira em TI: recrutamento, futuro do trabalho e contato com profissionais do mercado.
-- Inteligência artificial: IA generativa, modelos de linguagem e impactos da tecnologia na área profissional.
+- Carreira em TI: recrutamento, futuro do trabalho, segmentos para ingressar ao mercado e contato com profissionais.
+- Inteligência artificial: IA generativa, modelos de linguagem, impactos da tecnologia e, em 2026, benefícios e malefícios da IA na atualidade.
 - Segurança digital: cyber threat intelligence e engenharia social.
 - Base técnica: fundamentos de informática, lógica de programação, web design e interfaces gráficas aparecem em registro de 2023.
 - Ciência e cultura: a SETI aparece próxima de outras atividades escolares de ciência, cultura e tecnologia, como feira técnico-científica.
-- Também podem ser citadas áreas relacionadas como programação, redes, manutenção, suporte técnico, inovação e mercado de trabalho.
+- Também podem ser citadas áreas relacionadas como programação, redes, manutenção, suporte técnico, inovação, tecnologia empresarial, diversidade da informática e mercado de trabalho.
 
 Atualidade e relevância:
 - Atualmente, a SETI funciona como vitrine do curso de Informática.
 - O evento conecta alunos com temas reais do setor de tecnologia.
-- A edição de 2025 é a mais documentada, com cobertura da escola e do perfil do evento.
-- A organização de 2025 indica maior organização comunicacional e protagonismo estudantil.
+- A edição de 2025 é bem documentada, com cobertura da escola e do perfil do evento.
+- A SETI 2026 tem documentos oficiais de projeto e resumo, reforçando a continuidade e formalização do evento.
+- A organização de 2026 inclui oficialmente as turmas 4ª Informática A, B e C, com representantes de turma e comissão.
 - A SETI não deve ser tratada como evento isolado, pois está ligada ao percurso técnico dos estudantes.
 
 Organização e participantes:
 - Em 2025, a organização foi atribuída pela escola aos alunos das 4ªs séries A e B de Informática.
-- Publicações de participantes citam apoio da direção, da coordenação do curso e de estudantes envolvidos com recepção de palestrantes e gestão das redes sociais.
+- Em 2026, a organização é atribuída oficialmente aos alunos da 4ª Informática A, 4ª Informática B e 4ª Informática C.
+- Publicações de participantes de 2024 e 2025 citam apoio da direção, coordenação do curso e estudantes envolvidos.
 - Entre os nomes localizados em publicações de 2024 e 2025 aparecem Fernando Capovilla, Fabio Perucello, Jaqueline Shima, Weslley Romero, Daniel Ceragioli Abrão, Thiago Araujo, Diego Marcos Moreira e João Victor.
-- Essa lista deve ser tratada como mínimo confirmado em fontes abertas, não como lista completa oficial.
+- Para 2026, os representantes/comissão registrados são Ana Clara Magalhães, Diogo Monteiro, Julia Carvalho, Vinicius Aparecido Batista, Bianca de Brito Leite e Gustavo Alves de Oliveira.
+- Essas listas devem ser tratadas como registros mínimos confirmados nas fontes, não como lista completa de todos os envolvidos.
 
 Identidade visual:
 - Não foi localizado manual oficial de identidade visual da SETI.
@@ -110,13 +151,16 @@ Lacunas da pesquisa:
 - Não há contagem oficial de público por edição.
 - Não há comprovação nominal pública para 2000 a 2022.
 - Não foi encontrado manual oficial de cores da SETI.
+- Para 2026, há documentos oficiais, mas alguns palestrantes, brindes e pontuações das gincanas ainda aparecem como aguardando confirmação, em análise ou em orçamento.
 
 Regras de resposta:
 - Se perguntarem sobre datas antigas sem confirmação, diga que não há confirmação nominal pública localizada.
-- Se perguntarem sobre 2025, pode responder com maior segurança.
+- Se perguntarem sobre 2025, responda com base na confirmação oficial forte disponível.
 - Se perguntarem sobre 2024, trate como registros de participantes.
 - Se perguntarem sobre 2023, trate como registro indireto.
-- Se perguntarem sobre 2026, diga que há indicação de continuidade, mas sem edição concluída confirmada até 13/05/2026.
+- Se perguntarem sobre 2026, trate como documentos oficiais anexados e cite 4ª Informática A, B e C quando falar da organização.
+- Corrija qualquer resposta que diga que 2026 era apenas indício de continuidade: agora há documentos oficiais anexados.
+- Não omita a 4ª Informática C quando falar da organização de 2026.
 - Evite respostas enormes. Responda em 2 a 5 linhas quando a pergunta for simples.
 - Use tópicos quando a pergunta pedir lista, história, temas, linha do tempo ou explicação técnica.
 `;
