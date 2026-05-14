@@ -29,9 +29,10 @@
         <section id="login-panel" class="login-card">
           <p class="eyebrow">Acesso restrito</p>
           <h1>Entrar no painel</h1>
-          <p>Use a senha definida em <strong>ADMIN_PASSWORD</strong> nas variáveis de ambiente.</p>
+          <p>Use suas credenciais de administrador (email e senha) para acessar o painel.</p>
           <form id="login-form">
-            <input id="admin-password" type="password" placeholder="Senha administrativa" required />
+            <input id="admin-email" type="email" placeholder="Email" required />
+            <input id="admin-password" type="password" placeholder="Senha" required />
             <button type="submit">Entrar</button>
           </form>
           <p id="login-status" class="status"></p>

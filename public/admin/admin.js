@@ -1,6 +1,7 @@
 const loginPanel = document.getElementById('login-panel');
 const dashboardPanel = document.getElementById('dashboard-panel');
 const loginForm = document.getElementById('login-form');
+const emailInput = document.getElementById('admin-email');
 const passwordInput = document.getElementById('admin-password');
 const loginStatus = document.getElementById('login-status');
 const logoutButton = document.getElementById('logout-button');
@@ -184,16 +185,17 @@ const renderForm = (record = {}) => {
 
 const renderRecords = () => {
   const config = resources[currentResource];
-  if (!currentRecords.length) {
-    recordsList.innerHTML = '<p class="status">Nenhum registro encontrado.</p>';
-    return;
-  }
-
   recordsList.innerHTML = currentRecords.map((record) => {
-    const title = record[config.label] || `Registro #${record.id}`;
-    const subtitle = record.data_evento || record.status || record.email || record.turma || '';
-    const description = record.descricao || record.resumo || record.mensagem || record.area || '';
-    return `<article class="record"><header><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(subtitle)}</p></div><strong>#${escapeHtml(record.id)}</strong></header><p>${escapeHtml(description)}</p><div class="record-actions"><button data-edit="${escapeHtml(record.id)}">Editar</button><button class="delete" data-delete="${escapeHtml(record.id)}">Excluir</button></div></article>`;
+    const label = escapeHtml(record[config.label] || `ID: ${record.id}`);
+    return `
+      <div class="record-item">
+        <span>${label}</span>
+        <div class="record-actions">
+          <button data-edit="${record.id}" class="ghost-button">Editar</button>
+          <button data-delete="${record.id}" class="ghost-button">Excluir</button>
+        </div>
+      </div>
+    `;
   }).join('');
 
   recordsList.querySelectorAll('[data-edit]').forEach((button) => {
@@ -233,7 +235,10 @@ loginForm.addEventListener('submit', async (event) => {
   try {
     await api('/api/admin/login', {
       method: 'POST',
-      body: JSON.stringify({ password: passwordInput.value })
+      body: JSON.stringify({ 
+        email: emailInput.value,
+        password: passwordInput.value 
+      })
     });
     loginStatus.textContent = '';
     setAuthenticated(true);
