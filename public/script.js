@@ -16,6 +16,22 @@ const modal = document.getElementById('info-modal');
 const modalTitle = document.getElementById('modal-title');
 const modalBody = document.getElementById('modal-body');
 
+const escapeHtml = (value = '') => String(value)
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#039;');
+
+const formatDate = (value) => {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value).slice(0, 10);
+  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+};
+
+const formatTime = (value) => String(value || '').slice(0, 5);
+
 const toggleChat = (open) => {
   if (!chatWidget || !chatInput) return;
   const shouldOpen = typeof open === 'boolean' ? open : chatWidget.classList.contains('hidden');
@@ -82,6 +98,63 @@ const closeModal = () => {
   document.body.style.overflow = '';
 };
 
+const bindModalElements = () => {
+  document.querySelectorAll('[data-modal-title]').forEach((element) => {
+    if (element.dataset.modalBound === 'true') return;
+    element.dataset.modalBound = 'true';
+    element.addEventListener('click', () => {
+      openModal(element.dataset.modalTitle, element.dataset.modalBody || 'Informação indisponível no momento.');
+    });
+  });
+
+  document.querySelectorAll('[data-gallery-title]').forEach((element) => {
+    if (element.dataset.galleryBound === 'true') return;
+    element.dataset.galleryBound = 'true';
+    element.addEventListener('click', () => {
+      openModal(element.dataset.galleryTitle, element.dataset.galleryText || 'Espaço reservado para imagem do evento.');
+    });
+  });
+};
+
+const loadDynamicContent = async () => {
+  const schedule = document.querySelector('.schedule.timeline-schedule');
+  const activities = document.querySelector('#atividades .activity-grid');
+
+  try {
+    const [programacaoResponse, gincanasResponse] = await Promise.allSettled([
+      fetch('/api/programacao'),
+      fetch('/api/gincanas')
+    ]);
+
+    if (schedule && programacaoResponse.status === 'fulfilled' && programacaoResponse.value.ok) {
+      const programacao = await programacaoResponse.value.json();
+      if (Array.isArray(programacao) && programacao.length) {
+        schedule.innerHTML = programacao.map((item, index) => {
+          const data = `${formatDate(item.data_evento)} · ${item.dia_semana || ''}`.trim();
+          const palestrante = item.palestrante_nome || item.status_palestrante || 'aguardando confirmação';
+          const body = `${item.descricao || item.titulo}. Turma: ${item.turma || 'não informada'}. Horário: ${formatTime(item.horario_inicio)} às ${formatTime(item.horario_fim)}. Palestrante: ${palestrante}.`;
+          return `<article class="schedule-card ${index === 2 ? 'featured' : ''}" data-modal-title="${escapeHtml(item.titulo)}" data-modal-body="${escapeHtml(body)}"><time>${escapeHtml(data)}</time><h3>${escapeHtml(item.titulo)}</h3><p><strong>Turma:</strong> ${escapeHtml(item.turma || 'não informada')}</p><p><strong>Palestrante:</strong> ${escapeHtml(palestrante)}</p></article>`;
+        }).join('');
+      }
+    }
+
+    if (activities && gincanasResponse.status === 'fulfilled' && gincanasResponse.value.ok) {
+      const gincanas = await gincanasResponse.value.json();
+      if (Array.isArray(gincanas) && gincanas.length) {
+        activities.innerHTML = gincanas.map((item) => {
+          const icon = item.icone || '💡';
+          const body = `${item.descricao || ''}${item.regras ? ` Regras: ${item.regras}` : ''}`.trim();
+          return `<article data-modal-title="${escapeHtml(item.nome)}" data-modal-body="${escapeHtml(body || 'Atividade da SETI 2026.')}"><span>${escapeHtml(icon)}</span><h3>${escapeHtml(item.nome)}</h3><p>${escapeHtml(item.descricao || 'Atividade da SETI 2026.')}</p></article>`;
+        }).join('');
+      }
+    }
+
+    bindModalElements();
+  } catch (error) {
+    console.warn('Conteúdo dinâmico indisponível, mantendo conteúdo estático.', error);
+  }
+};
+
 chatToggle?.addEventListener('click', () => toggleChat());
 chatClose?.addEventListener('click', () => toggleChat(false));
 openChatCta?.addEventListener('click', () => toggleChat(true));
@@ -120,17 +193,7 @@ backToTop?.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-document.querySelectorAll('[data-modal-title]').forEach((element) => {
-  element.addEventListener('click', () => {
-    openModal(element.dataset.modalTitle, element.dataset.modalBody || 'Informação indisponível no momento.');
-  });
-});
-
-document.querySelectorAll('[data-gallery-title]').forEach((element) => {
-  element.addEventListener('click', () => {
-    openModal(element.dataset.galleryTitle, element.dataset.galleryText || 'Espaço reservado para imagem do evento.');
-  });
-});
+bindModalElements();
 
 document.querySelectorAll('[data-close-modal]').forEach((element) => {
   element.addEventListener('click', closeModal);
@@ -173,3 +236,4 @@ const handleScroll = () => {
 
 window.addEventListener('scroll', handleScroll);
 handleScroll();
+loadDynamicContent();
