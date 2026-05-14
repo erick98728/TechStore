@@ -236,6 +236,37 @@ app.post('/api/admin/logout', (req, res) => {
   });
 });
 
+// ===== ETAPA 2: Autenticação Pública =====
+
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ success: false, error: 'Email e senha são obrigatórios.' });
+    }
+    const { authenticateUser } = require('./auth');
+    const user = await authenticateUser(email, password);
+    if (!user) {
+      return res.status(401).json({ success: false, error: 'Email ou senha inválidos.' });
+    }
+    req.session.userId = user.id;
+    req.session.user = { id: user.id, nome: user.nome, email: user.email, role: user.role };
+    res.json({ success: true, message: 'Login realizado com sucesso.', user: req.session.user });
+  } catch (error) {
+    console.error('Erro no login:', error);
+    res.status(500).json({ success: false, error: 'Erro ao fazer login.' });
+  }
+});
+
+app.post('/api/auth/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ success: false, error: 'Erro ao fazer logout.' });
+    }
+    res.json({ success: true, message: 'Logout realizado com sucesso.' });
+  });
+});
+
 app.post('/api/auth/register', async (req, res) => {
   try {
     const { nome, email, password, turma_id } = req.body;
@@ -265,10 +296,7 @@ app.get('/api/auth/me', requireAuth, async (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
-  // Verifica se está autenticado como admin
-  if (!req.session?.isAdmin || req.session?.user?.role !== 'admin') {
-    return res.sendFile(path.join(__dirname, 'public', 'admin', 'login.html'));
-  }
+  // Sempre serve index.html - o frontend verifica autenticação via /api/admin/status
   res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
 

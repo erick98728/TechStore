@@ -120,6 +120,17 @@ const resources = {
       ['pontos', 'Pontos', 'number'],
       ['observacao', 'Observação', 'textarea']
     ]
+  },
+  users: {
+    title: 'Usuários',
+    label: 'nome',
+    fields: [
+      ['nome', 'Nome'],
+      ['email', 'Email'],
+      ['role', 'Função', 'select', ['aluno', 'professor', 'admin']],
+      ['turma_id', 'ID da turma', 'number'],
+      ['ativo', 'Ativo', 'select', [['1', 'Sim'], ['0', 'Não']]]
+    ]
   }
 };
 

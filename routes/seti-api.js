@@ -46,6 +46,11 @@ const allowedTables = {
     table: 'duvidas',
     fields: ['nome', 'email', 'turma', 'mensagem', 'respondida'],
     order: 'criado_em DESC'
+  },
+  users: {
+    table: 'users',
+    fields: ['nome', 'email', 'role', 'turma_id', 'ativo'],
+    order: 'nome ASC'
   }
 };
 
@@ -178,11 +183,14 @@ const createSetiApi = ({ requireAdmin } = {}) => {
   router.get('/pontuacao', async (req, res) => {
     try {
       const results = await db.query(
-        `SELECT t.id, t.nome as turma,
-                COALESCE(SUM(pg.pontos), 0) as pontos_totais,
-                COUNT(DISTINCT pg.gincana_id) as gincanas_participadas
+        `SELECT t.id,
+                t.nome as turma,
+                COALESCE(SUM(pg.pontos), 0) as pontos_gincanas,
+                COALESCE(SUM(p.pontos_perdidos), 0) as pontos_penalizados,
+                COALESCE(SUM(pg.pontos), 0) - COALESCE(SUM(p.pontos_perdidos), 0) as pontos_totais
          FROM turmas t
          LEFT JOIN pontuacao_gincanas pg ON t.id = pg.turma_id
+         LEFT JOIN penalizacoes p ON t.id = p.turma_id
          GROUP BY t.id, t.nome
          ORDER BY pontos_totais DESC, t.nome ASC`
       );

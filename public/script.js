@@ -182,9 +182,13 @@ const loadDynamicContent = async () => {
     if (pontuacaoContainer && pontuacaoResponse.status === 'fulfilled' && pontuacaoResponse.value.ok) {
       const pontuacao = await pontuacaoResponse.value.json();
       if (Array.isArray(pontuacao) && pontuacao.length) {
-        const sorted = pontuacao.sort((a, b) => (b.pontos || 0) - (a.pontos || 0));
+        const sorted = pontuacao.sort((a, b) => (b.pontos_totais || 0) - (a.pontos_totais || 0));
         pontuacaoContainer.innerHTML = sorted.map((item, index) => {
-          return `<tr><td>${index + 1}º</td><td>${escapeHtml(item.turma_nome || `Turma #${item.turma_id}`)}</td><td><strong>${item.pontos || 0}</strong> pontos</td></tr>`;
+          const pontos = item.pontos_totais || 0;
+          const gincanas = item.pontos_gincanas || 0;
+          const penalizados = item.pontos_penalizados || 0;
+          const detalhes = penalizados > 0 ? ` (${gincanas} - ${penalizados})` : '';
+          return `<tr><td>${index + 1}º</td><td>${escapeHtml(item.turma || `Turma #${item.id}`)}</td><td><strong>${pontos}</strong> pontos${detalhes}</td></tr>`;
         }).join('');
       }
     }
