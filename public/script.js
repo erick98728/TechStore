@@ -5,6 +5,7 @@ const openChatCta = document.getElementById('open-chat-cta');
 const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input');
 const chatMessages = document.getElementById('chat-messages');
+const quickActions = document.querySelectorAll('.quick-actions button');
 
 const toggleChat = (open) => {
   const shouldOpen = typeof open === 'boolean' ? open : chatWidget.classList.contains('hidden');
@@ -20,14 +21,7 @@ const addMessage = (text, sender) => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
-chatToggle.addEventListener('click', () => toggleChat());
-chatClose.addEventListener('click', () => toggleChat(false));
-openChatCta.addEventListener('click', () => toggleChat(true));
-
-chatForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  const message = chatInput.value.trim();
+const sendMessage = async (message) => {
   if (!message) return;
 
   addMessage(message, 'user');
@@ -44,7 +38,6 @@ chatForm.addEventListener('submit', async (event) => {
     });
 
     const data = await response.json();
-
     chatMessages.lastElementChild.remove();
 
     if (!response.ok) {
@@ -57,4 +50,21 @@ chatForm.addEventListener('submit', async (event) => {
     chatMessages.lastElementChild.remove();
     addMessage('Falha de conexão. Tente novamente em instantes.', 'bot');
   }
+};
+
+chatToggle.addEventListener('click', () => toggleChat());
+chatClose.addEventListener('click', () => toggleChat(false));
+openChatCta.addEventListener('click', () => toggleChat(true));
+
+quickActions.forEach((button) => {
+  button.addEventListener('click', () => {
+    toggleChat(true);
+    sendMessage(button.dataset.question);
+  });
+});
+
+chatForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const message = chatInput.value.trim();
+  await sendMessage(message);
 });
