@@ -32,9 +32,14 @@ const allowedTables = {
     fields: ['turma_id', 'gincana_id', 'pontos', 'observacao'],
     order: 'criado_em DESC'
   },
+  tipos_penalizacoes: {
+    table: 'tipos_penalizacoes',
+    fields: ['nome', 'descricao', 'pontos_padrao', 'ativo'],
+    order: 'nome ASC'
+  },
   penalizacoes: {
     table: 'penalizacoes',
-    fields: ['turma_id', 'motivo', 'pontos_perdidos', 'observacao'],
+    fields: ['turma_id', 'tipo_penalizacao_id', 'pontos_perdidos', 'observacao'],
     order: 'criado_em DESC'
   },
   duvidas: {
