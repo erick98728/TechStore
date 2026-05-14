@@ -3,6 +3,22 @@
 -- Semana de Estudos Técnicos em Informática
 -- ============================================================================
 
+-- Tabela: users
+-- Usuários do sistema (alunos, professores, admin)
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role ENUM('aluno', 'professor', 'admin') NOT NULL DEFAULT 'aluno',
+  turma_id INT,
+  ativo BOOLEAN NOT NULL DEFAULT TRUE,
+  ultimo_login_em DATETIME,
+  criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (turma_id) REFERENCES turmas(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Tabela: turmas
 -- Organiza as turmas da escola para o evento SETI
 CREATE TABLE IF NOT EXISTS turmas (
@@ -82,9 +98,16 @@ CREATE TABLE IF NOT EXISTS duvidas (
   nome VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   turma VARCHAR(255),
+  assunto VARCHAR(255),
   mensagem TEXT NOT NULL,
+  resposta TEXT,
   respondida BOOLEAN NOT NULL DEFAULT FALSE,
-  criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  respondida_em DATETIME,
+  usuario_id INT,
+  respondida_por INT,
+  criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES users(id) ON DELETE SET NULL,
+  FOREIGN KEY (respondida_por) REFERENCES users(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Tabela: participantes
@@ -136,10 +159,31 @@ CREATE TABLE IF NOT EXISTS penalizacoes (
   FOREIGN KEY (tipo_penalizacao_id) REFERENCES tipos_penalizacoes(id) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Tabela: galeria
+-- Fotos e imagens do evento SETI
+CREATE TABLE IF NOT EXISTS galeria (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(255) NOT NULL,
+  legenda TEXT,
+  imagem_url VARCHAR(255) NOT NULL,
+  thumb_url VARCHAR(255),
+  alt_text VARCHAR(255),
+  categoria VARCHAR(100),
+  ordem INT DEFAULT 0,
+  publicado BOOLEAN NOT NULL DEFAULT TRUE,
+  criado_por INT,
+  criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (criado_por) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- ============================================================================
 -- Índices para melhor performance
 -- ============================================================================
 
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_role ON users(role);
+CREATE INDEX idx_users_turma ON users(turma_id);
 CREATE INDEX idx_programacao_data ON programacao(data_evento);
 CREATE INDEX idx_programacao_palestrante ON programacao(palestrante_id);
 CREATE INDEX idx_duvidas_respondida ON duvidas(respondida);
@@ -150,6 +194,9 @@ CREATE INDEX idx_pontuacao_gincana ON pontuacao_gincanas(gincana_id);
 CREATE INDEX idx_penalizacoes_turma ON penalizacoes(turma_id);
 CREATE INDEX idx_penalizacoes_tipo ON penalizacoes(tipo_penalizacao_id);
 CREATE INDEX idx_tipos_penalizacoes_ativo ON tipos_penalizacoes(ativo);
+CREATE INDEX idx_galeria_categoria ON galeria(categoria);
+CREATE INDEX idx_galeria_publicado ON galeria(publicado);
+CREATE INDEX idx_galeria_ordem ON galeria(ordem);
 
 -- ============================================================================
 -- End of SETI 2026 Database Schema
