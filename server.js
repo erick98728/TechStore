@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const OpenAI = require('openai');
+const { authenticateUser, getUserById, requireAuth, requireRole } = require('./auth');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -183,38 +184,91 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 
 const requireAdmin = (req, res, next) => {
-  if (req.session?.isAdmin) return next();
+  if (req.session?.isAdmin && req.session?.user?.role === 'admin') return next();
   return res.status(401).json({ error: 'Acesso administrativo necessário.' });
 };
 
 app.get('/api/admin/status', (req, res) => {
-  res.json({ authenticated: Boolean(req.session?.isAdmin) });
+  res.json({
+    authenticated: Boolean(req.session?.isAdmin),
+    user: req.session?.user || null
+  });
 });
 
-app.post('/api/admin/login', (req, res) => {
-  const { password } = req.body;
-  const adminPassword = process.env.ADMIN_PASSWORD;
+app.post('/api/admin/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-  if (!adminPassword) {
-    return res.status(500).json({ error: 'ADMIN_PASSWORD não configurada no servidor.' });
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email e senha são obrigatórios.' });
+    }
+
+    // Tenta autenticar com usuário real do banco
+    let user = await authenticateUser(email, password);
+
+    // Fallback para ADMIN_PASSWORD se não encontrar usuário
+    if (!user && email === 'admin' && password === process.env.ADMIN_PASSWORD) {
+      user = { id: 0, nome: 'Administrador', email: 'admin', role: 'admin', turma_id: null };
+    }
+
+    if (!user) {
+      return res.status(401).json({ error: 'Email ou senha inválidos.' });
+    }
+
+    // Verifica se é admin
+    if (user.role !== 'admin') {
+      return res.status(403).json({ error: 'Permissão insuficiente. Apenas administradores podem acessar.' });
+    }
+
+    req.session.user = user;
+    req.session.isAdmin = true;
+    return res.json({ success: true, message: 'Login realizado com sucesso.', user });
+  } catch (error) {
+    console.error('Erro no login:', error);
+    return res.status(500).json({ error: 'Erro ao processar login.' });
   }
-
-  if (!password || password !== adminPassword) {
-    return res.status(401).json({ error: 'Senha administrativa inválida.' });
-  }
-
-  req.session.isAdmin = true;
-  return res.json({ success: true, message: 'Login realizado com sucesso.' });
 });
 
 app.post('/api/admin/logout', (req, res) => {
   req.session.destroy(() => {
     res.clearCookie('connect.sid');
-    res.json({ success: true });
+    res.json({ success: true, message: 'Logout realizado com sucesso.' });
   });
 });
 
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    const { nome, email, password, turma_id } = req.body;
+
+    if (!nome || !email || !password) {
+      return res.status(400).json({ error: 'Nome, email e senha são obrigatórios.' });
+    }
+
+    const { registerUser } = require('./auth');
+    const user = await registerUser(nome, email, password, 'aluno', turma_id);
+
+    return res.json({ success: true, message: 'Usuário registrado com sucesso.', user });
+  } catch (error) {
+    console.error('Erro no registro:', error);
+    return res.status(400).json({ error: error.message || 'Erro ao registrar usuário.' });
+  }
+});
+
+app.get('/api/auth/me', requireAuth, async (req, res) => {
+  try {
+    const user = await getUserById(req.session.user.id);
+    return res.json({ user });
+  } catch (error) {
+    console.error('Erro ao buscar usuário:', error);
+    return res.status(500).json({ error: 'Erro ao buscar dados do usuário.' });
+  }
+});
+
 app.get('/admin', (req, res) => {
+  // Verifica se está autenticado como admin
+  if (!req.session?.isAdmin || req.session?.user?.role !== 'admin') {
+    return res.sendFile(path.join(__dirname, 'public', 'admin', 'login.html'));
+  }
   res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
 
