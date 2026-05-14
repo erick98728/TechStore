@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel SETI 2026</title>
+    <link rel="stylesheet" href="/admin/admin.css" />
+  </head>
+  <body>
+    <main class="admin-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/">SETI 2026</a>
+        <p>Painel administrativo</p>
+        <nav id="admin-nav" class="admin-nav">
+          <button data-resource="programacao" class="active">Programação</button>
+          <button data-resource="palestrantes">Palestrantes</button>
+          <button data-resource="gincanas">Gincanas</button>
+          <button data-resource="noticias">Notícias</button>
+          <button data-resource="turmas">Turmas</button>
+          <button data-resource="duvidas">Dúvidas</button>
+        </nav>
+        <button id="logout-button" class="ghost-button hidden">Sair</button>
+      </aside>
+
+      <section class="admin-content">
+        <section id="login-panel" class="login-card">
+          <p class="eyebrow">Acesso restrito</p>
+          <h1>Entrar no painel</h1>
+          <p>Use a senha definida em <strong>ADMIN_PASSWORD</strong> nas variáveis de ambiente.</p>
+          <form id="login-form">
+            <input id="admin-password" type="password" placeholder="Senha administrativa" required />
+            <button type="submit">Entrar</button>
+          </form>
+          <p id="login-status" class="status"></p>
+        </section>
+
+        <section id="dashboard-panel" class="dashboard hidden">
+          <header class="dashboard-header">
+            <div>
+              <p class="eyebrow">Gerenciamento</p>
+              <h1 id="resource-title">Programação</h1>
+            </div>
+            <button id="reload-button">Atualizar dados</button>
+          </header>
+
+          <div class="admin-grid">
+            <section class="form-card">
+              <h2 id="form-title">Novo registro</h2>
+              <form id="resource-form"></form>
+              <p id="form-status" class="status"></p>
+            </section>
+
+            <section class="table-card">
+              <h2>Registros</h2>
+              <div id="records-list" class="records-list"></div>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/admin/admin.js"></script>
+  </body>
+</html>
