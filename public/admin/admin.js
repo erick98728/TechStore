@@ -92,6 +92,21 @@ const resources = {
   }
 };
 
+const escapeHtml = (value = '') => String(value)
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#039;');
+
+const normalizeValue = (value, type) => {
+  if (value === null || value === undefined) return '';
+  const text = String(value);
+  if (type === 'date') return text.slice(0, 10);
+  if (type === 'time') return text.slice(0, 5);
+  return text;
+};
+
 const api = async (url, options = {}) => {
   const response = await fetch(url, {
     headers: { 'Content-Type': 'application/json' },
@@ -115,19 +130,19 @@ const renderForm = (record = {}) => {
   formTitle.textContent = editingId ? `Editar ${config.title}` : `Novo registro em ${config.title}`;
 
   const fieldsHtml = config.fields.map(([name, label, type = 'text', options]) => {
-    const value = record[name] ?? '';
+    const value = normalizeValue(record[name], type);
     if (type === 'textarea') {
-      return `<label>${label}<textarea name="${name}">${String(value ?? '')}</textarea></label>`;
+      return `<label>${label}<textarea name="${name}">${escapeHtml(value)}</textarea></label>`;
     }
     if (type === 'select') {
       const optionList = (options || []).map((option) => {
         const optionValue = Array.isArray(option) ? option[0] : option;
         const optionLabel = Array.isArray(option) ? option[1] : option;
-        return `<option value="${optionValue}" ${String(value) === String(optionValue) ? 'selected' : ''}>${optionLabel}</option>`;
+        return `<option value="${escapeHtml(optionValue)}" ${String(value) === String(optionValue) ? 'selected' : ''}>${escapeHtml(optionLabel)}</option>`;
       }).join('');
       return `<label>${label}<select name="${name}">${optionList}</select></label>`;
     }
-    return `<label>${label}<input name="${name}" type="${type}" value="${String(value ?? '').slice(0, 10)}" /></label>`;
+    return `<label>${label}<input name="${name}" type="${type}" value="${escapeHtml(value)}" /></label>`;
   }).join('');
 
   resourceForm.innerHTML = `<div class="resource-fields">${fieldsHtml}<button type="submit">${editingId ? 'Salvar alterações' : 'Criar registro'}</button><button type="button" id="cancel-edit" class="ghost-button">Limpar</button></div>`;
@@ -147,7 +162,8 @@ const renderRecords = () => {
   recordsList.innerHTML = currentRecords.map((record) => {
     const title = record[config.label] || `Registro #${record.id}`;
     const subtitle = record.data_evento || record.status || record.email || record.turma || '';
-    return `<article class="record"><header><div><h3>${title}</h3><p>${subtitle}</p></div><strong>#${record.id}</strong></header><p>${record.descricao || record.resumo || record.mensagem || record.area || ''}</p><div class="record-actions"><button data-edit="${record.id}">Editar</button><button class="delete" data-delete="${record.id}">Excluir</button></div></article>`;
+    const description = record.descricao || record.resumo || record.mensagem || record.area || '';
+    return `<article class="record"><header><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(subtitle)}</p></div><strong>#${escapeHtml(record.id)}</strong></header><p>${escapeHtml(description)}</p><div class="record-actions"><button data-edit="${escapeHtml(record.id)}">Editar</button><button class="delete" data-delete="${escapeHtml(record.id)}">Excluir</button></div></article>`;
   }).join('');
 
   recordsList.querySelectorAll('[data-edit]').forEach((button) => {
@@ -177,7 +193,7 @@ const loadResource = async () => {
     currentRecords = await api(`/api/admin/${currentResource}`);
     renderRecords();
   } catch (error) {
-    recordsList.innerHTML = `<p class="status">${error.message}</p>`;
+    recordsList.innerHTML = `<p class="status">${escapeHtml(error.message)}</p>`;
   }
 };
 
