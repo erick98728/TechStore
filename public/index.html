@@ -3,105 +3,204 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SETI | Semana de Estudos Técnicos em Informática</title>
+    <title>SETI 2026 | Semana de Estudos Técnicos em Informática</title>
+    <meta
+      name="description"
+      content="Site oficial da SETI 2026, Semana de Estudos Técnicos em Informática da E.M. Dr. Leandro Franceschini."
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="topbar">
-      <a class="logo" href="#inicio"><span>SETI</span> Dr. Leandro Franceschini</a>
-      <nav>
-        <a href="#historia">História</a>
-        <a href="#atualidade">Atualidade</a>
+    <header class="topbar" id="topo">
+      <a class="logo" href="#inicio" aria-label="Ir para o início">
+        <span class="logo-mark">SETI</span>
+        <span class="logo-text">Dr. Leandro Franceschini</span>
+      </a>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav" id="site-nav" aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#seti-2026">SETI 2026</a>
+        <a href="#programacao">Programação</a>
+        <a href="#gincanas">Gincanas</a>
         <a href="#temas">Temas</a>
         <a href="#timeline">Linha do tempo</a>
+        <a href="#assistente" id="nav-chat">Assistente</a>
       </nav>
     </header>
 
     <main id="inicio">
-      <section class="hero">
-        <div class="hero-text">
+      <section class="hero section-observe">
+        <div class="hero-content">
           <p class="eyebrow">Semana de Estudos Técnicos em Informática</p>
-          <h1>SETI: tecnologia, carreira e inspiração dentro da escola</h1>
-          <p>
-            Pesquisa sobre a SETI, evento ligado ao curso técnico em Informática
-            da E.M. Dr. Leandro Franceschini, em Sumaré/SP. Agora com dados oficiais
-            do projeto SETI 2026.
+          <h1>Conectando estudantes, tecnologia e futuro profissional.</h1>
+          <p class="hero-subtitle">
+            A SETI 2026 reúne palestras, gincanas e atividades técnicas para aproximar os alunos
+            do curso de Informática da E.M. Dr. Leandro Franceschini dos temas reais da tecnologia.
           </p>
+
+          <div class="hero-meta" aria-label="Informações principais da SETI 2026">
+            <span>10 a 14 de agosto de 2026</span>
+            <span>Auditório da escola</span>
+            <span>4ª Informática A, B e C</span>
+          </div>
+
           <div class="actions">
-            <a class="btn primary" href="#historia">Conhecer a pesquisa</a>
+            <a class="btn primary" href="#programacao">Ver programação</a>
             <button id="open-chat-cta" class="btn secondary">Perguntar ao assistente</button>
           </div>
         </div>
-        <aside class="hero-card">
-          <span class="tag">Documento oficial 2026</span>
-          <h2>10 a 14/08/2026</h2>
+
+        <aside class="event-card section-observe">
+          <span class="tag">SETI 2026</span>
+          <h2>Evento oficial documentado</h2>
           <p>
-            A SETI 2026 está registrada para ocorrer no auditório da escola, com
-            organização das turmas 4ª Informática A, B e C e orientação do Prof. Luís Guilherme.
+            Realizado de 10/08/2026 a 14/08/2026, com organização das turmas 4ª Informática A,
+            4ª Informática B e 4ª Informática C, sob orientação do Prof. Luís Guilherme.
           </p>
+          <div class="mini-grid">
+            <div><strong>19h20</strong><small>deslocamento</small></div>
+            <div><strong>19h30</strong><small>palestra</small></div>
+            <div><strong>21h15</strong><small>intervalo</small></div>
+            <div><strong>22h40</strong><small>retorno</small></div>
+          </div>
         </aside>
       </section>
 
-      <section class="stats">
-        <article><strong>10 a 14/08</strong><span>SETI 2026 documentada</span></article>
-        <article><strong>4ªs A, B e C</strong><span>organização oficial de 2026</span></article>
-        <article><strong>Auditório</strong><span>local definido para o evento</span></article>
+      <section class="stats section-observe" aria-label="Destaques da SETI 2026">
+        <article><strong>5 dias</strong><span>de palestras e atividades técnicas</span></article>
+        <article><strong>4ª A, B e C</strong><span>turmas responsáveis pela organização</span></article>
+        <article><strong>15/08</strong><span>semana próxima ao Dia da Informática</span></article>
+        <article><strong>Auditório</strong><span>ambiente principal do evento</span></article>
       </section>
 
-      <section id="historia" class="section split">
-        <div>
-          <p class="eyebrow">História da SETI</p>
-          <h2>Origem e trajetória dentro da escola</h2>
+      <section id="sobre" class="section split section-observe">
+        <div class="section-title sticky-title">
+          <p class="eyebrow">Sobre a SETI</p>
+          <h2>Uma semana técnica para aprender além da sala de aula.</h2>
         </div>
-        <div class="panel">
+        <div class="panel readable">
           <p>
-            SETI significa <strong>Semana de Estudos Técnicos em Informática</strong>.
-            Segundo os registros encontrados, ela funciona como uma semana de
-            formação, palestras, contato com profissionais e aproximação dos alunos
-            do técnico em Informática com temas atuais do mercado de tecnologia.
+            SETI significa <strong>Semana de Estudos Técnicos em Informática</strong>. Segundo os
+            registros encontrados, ela funciona como uma semana de formação, palestras, contato
+            com profissionais e aproximação dos alunos do técnico em Informática com temas atuais
+            do mercado de tecnologia.
           </p>
           <p>
-            A documentação mais forte localizada anteriormente era de 2025, quando a escola confirmou
-            a realização da semana de 11 a 15 de agosto, planejada, organizada e
-            executada pelas 4ªs séries A e B de Informática. Com os novos documentos,
-            a SETI 2026 também passa a ter registro oficial, incluindo as turmas 4ª Informática A,
-            4ª Informática B e 4ª Informática C na organização.
+            A SETI se conecta ao percurso técnico dos estudantes, trabalhando temas como programação,
+            inteligência artificial, tecnologia empresarial, mercado de trabalho, segurança digital,
+            redes, suporte técnico e inovação.
           </p>
         </div>
       </section>
 
-      <section id="atualidade" class="section">
+      <section id="seti-2026" class="section section-observe">
+        <div class="section-title center">
+          <p class="eyebrow">Edição atual</p>
+          <h2>SETI 2026</h2>
+          <p>
+            A edição de 2026 possui documentos oficiais com datas, local, objetivos, organização,
+            programação, gincanas, penalizações e temas das palestras.
+          </p>
+        </div>
+
+        <div class="cards feature-cards">
+          <article>
+            <span class="icon">📍</span>
+            <h3>Local e data</h3>
+            <p>De 10 a 14 de agosto de 2026, no Auditório da Escola Municipal Dr. Leandro Franceschini.</p>
+          </article>
+          <article>
+            <span class="icon">🎓</span>
+            <h3>Organização</h3>
+            <p>Responsabilidade das turmas 4ª Informática A, 4ª Informática B e 4ª Informática C.</p>
+          </article>
+          <article>
+            <span class="icon">🤝</span>
+            <h3>Orientação</h3>
+            <p>Orientação aos alunos pelo Prof. Luís Guilherme, com comissão e representantes de turma.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="programacao" class="section section-observe">
         <div class="section-title">
-          <p class="eyebrow">Atualidade</p>
-          <h2>Por que a SETI continua relevante?</h2>
-          <p>
-            Atualmente, a SETI aparece como vitrine do curso de Informática e como
-            conexão entre estudantes, escola, palestrantes e temas reais do setor de tecnologia.
-          </p>
+          <p class="eyebrow">Programação oficial</p>
+          <h2>Agenda de palestras da SETI 2026</h2>
+          <p>Horário das palestras: 19h30 às 21h15. Alguns palestrantes ainda aparecem como aguardando confirmação.</p>
         </div>
-        <div class="cards">
-          <article><span>▣</span><h3>Protagonismo</h3><p>Em 2026, a organização é atribuída aos alunos da 4ª Informática A, B e C, com representantes de turma e comissão.</p></article>
-          <article><span>⌁</span><h3>Mercado de TI</h3><p>O cronograma inclui temas como diversidade da informática, tecnologia empresarial e ingresso ao mercado.</p></article>
-          <article><span>◎</span><h3>Formação atual</h3><p>A semana aproxima a base técnica de IA, segurança digital, programação, tecnologia e inovação.</p></article>
+
+        <div class="schedule">
+          <article class="schedule-card">
+            <time>10/08 · Segunda-feira</time>
+            <h3>IA: benefícios e malefícios na atualidade</h3>
+            <p><strong>Turma:</strong> 1ª A/B Informática</p>
+            <p><strong>Palestrante:</strong> aguardando confirmação</p>
+          </article>
+          <article class="schedule-card">
+            <time>11/08 · Terça-feira</time>
+            <h3>Diversidade da informática: quais áreas seguir?</h3>
+            <p><strong>Turma:</strong> 2ª A/B/C Informática</p>
+            <p><strong>Palestrante:</strong> aguardando confirmação</p>
+          </article>
+          <article class="schedule-card featured">
+            <time>12/08 · Quarta-feira</time>
+            <h3>Tecnologia empresarial</h3>
+            <p><strong>Turma:</strong> 3ª A/B/C Informática</p>
+            <p><strong>Palestrante:</strong> Guilherme Rufino</p>
+          </article>
+          <article class="schedule-card">
+            <time>13/08 · Quinta-feira</time>
+            <h3>A tecnologia para o mundo</h3>
+            <p><strong>Turma:</strong> 1ª, 2ª e 3ª Informática</p>
+            <p><strong>Palestrante:</strong> aguardando confirmação</p>
+          </article>
+          <article class="schedule-card">
+            <time>14/08 · Sexta-feira</time>
+            <h3>Segmentos para ingressar ao mercado</h3>
+            <p><strong>Turma:</strong> 4ª A/B/C Informática</p>
+            <p><strong>Palestrante:</strong> aguardando confirmação</p>
+          </article>
         </div>
       </section>
 
-      <section id="temas" class="section">
+      <section id="gincanas" class="section section-observe">
+        <div class="section-title center">
+          <p class="eyebrow">Gincanas</p>
+          <h2>Interação, tecnologia e participação</h2>
+          <p>As gincanas acontecem após o intervalo e ajudam a tornar o aprendizado mais dinâmico.</p>
+        </div>
+        <div class="activity-grid">
+          <article><span>⚡</span><h3>Passa ou Repassa</h3><p>Perguntas e respostas entre salas, com equipes de três alunos e níveis de dificuldade.</p></article>
+          <article><span>🧩</span><h3>Labirinto</h3><p>Um aluno executa comandos apresentados pela turma para sair do labirinto em até 60 segundos.</p></article>
+          <article><span>❔</span><h3>Quem Sou Eu?</h3><p>O participante identifica objetos, softwares, sistemas ou tecnologias por meio de pistas.</p></article>
+          <article><span>🏆</span><h3>Show da Tecnologia</h3><p>Jogo de perguntas inspirado no Show do Milhão, com temas de tecnologia da informação.</p></article>
+          <article><span>🎤</span><h3>Perguntas da palestra</h3><p>Questões sobre o tema apresentado no dia, pontuando a turma que responder corretamente.</p></article>
+        </div>
+      </section>
+
+      <section id="temas" class="section section-observe">
         <div class="section-title">
           <p class="eyebrow">Temas abordados</p>
-          <h2>Principais áreas trabalhadas</h2>
+          <h2>Conteúdos que conectam escola e tecnologia</h2>
         </div>
         <div class="topic-grid">
-          <article><b>IA</b><h3>Inteligência artificial</h3><p>Em 2026, aparece o tema “IA: benefícios e malefícios na atualidade”.</p></article>
-          <article><b>SEG</b><h3>Segurança digital</h3><p>Cyber threat intelligence, engenharia social e proteção de dados aparecem como temas ligados à área.</p></article>
+          <article><b>IA</b><h3>Inteligência artificial</h3><p>Benefícios, malefícios, IA generativa, modelos de linguagem e impactos profissionais.</p></article>
+          <article><b>SEG</b><h3>Segurança digital</h3><p>Cyber threat intelligence, engenharia social e proteção de dados.</p></article>
           <article><b>DEV</b><h3>Programação e web</h3><p>Lógica de programação, web design, interfaces gráficas e páginas dinâmicas com PHP.</p></article>
-          <article><b>RED</b><h3>Redes e suporte</h3><p>Manutenção, redes, suporte técnico e infraestrutura fazem parte da formação técnica.</p></article>
-          <article><b>CAR</b><h3>Carreira em TI</h3><p>A edição de 2026 prevê tema sobre segmentos para ingressar no mercado.</p></article>
-          <article><b>TEC</b><h3>Tecnologia e sociedade</h3><p>O projeto 2026 cita temas como “A tecnologia para o mundo” e “Tecnologia empresarial”.</p></article>
+          <article><b>RED</b><h3>Redes e suporte</h3><p>Manutenção, redes, suporte técnico e infraestrutura.</p></article>
+          <article><b>CAR</b><h3>Carreira em TI</h3><p>Recrutamento, diversidade da informática e segmentos para ingressar no mercado.</p></article>
+          <article><b>EMP</b><h3>Tecnologia empresarial</h3><p>Uso da tecnologia em empresas, processos, inovação e transformação digital.</p></article>
         </div>
       </section>
 
-      <section id="timeline" class="section">
+      <section id="timeline" class="section section-observe">
         <div class="section-title">
           <p class="eyebrow">Linha do tempo</p>
           <h2>Registros confirmados ou localizados</h2>
@@ -110,43 +209,62 @@
           <article><strong>2000-2022</strong><h3>Sem confirmação nominal</h3><p>Não foram encontrados registros públicos indexados que comprovem edições específicas nesse período.</p></article>
           <article><strong>2023</strong><h3>Registro indireto</h3><p>Perfil profissional menciona SETI 2023 e conteúdos como fundamentos, lógica, web design e interfaces.</p></article>
           <article><strong>2024</strong><h3>Participantes</h3><p>Há registros de organização na semana de 12 de agosto e palestra “O Futuro do Trabalho”.</p></article>
-          <article><strong>2025</strong><h3>Confirmação oficial forte</h3><p>A escola publicou que a SETI ocorreu de 11 a 15 de agosto, organizada pelas 4ªs A e B de Informática.</p></article>
-          <article><strong>2026</strong><h3>Documentos oficiais</h3><p>A SETI 2026 está prevista para 10 a 14 de agosto, no auditório da escola, organizada pelas 4ªs A, B e C de Informática.</p></article>
+          <article><strong>2025</strong><h3>Confirmação oficial forte</h3><p>A escola publicou a SETI de 11 a 15 de agosto, organizada pelas 4ªs A e B de Informática.</p></article>
+          <article><strong>2026</strong><h3>Documentos oficiais</h3><p>A SETI 2026 está prevista para 10 a 14 de agosto, organizada pelas 4ªs A, B e C de Informática.</p></article>
         </div>
       </section>
 
-      <section class="section visual">
-        <div>
-          <p class="eyebrow">SETI 2026</p>
-          <h2>Programação, gincanas e organização</h2>
-          <p>
-            O projeto oficial de 2026 prevê deslocamento às 19h20, início das palestras
-            às 19h30, intervalo às 21h15, gincanas após o intervalo e retorno às salas às 22h40.
-            Entre as gincanas aparecem Passa ou Repassa, Labirinto, Quem Sou Eu, Show da Tecnologia
-            e perguntas sobre a palestra do dia.
-          </p>
-        </div>
-        <div class="palette">
-          <span style="--color:#6C3BFF">SETI</span>
-          <span style="--color:#B9A7FF">2026</span>
-          <span style="--color:#2364D2">4ª A</span>
-          <span style="--color:#14151F">4ª B</span>
-          <span style="--color:#00E5FF">4ª C</span>
-        </div>
-      </section>
-
-      <section class="section note">
+      <section id="lacunas" class="section note section-observe">
+        <p class="eyebrow">Transparência</p>
         <h2>Lacunas da pesquisa</h2>
         <p>
-          Ainda há ausência de programas completos de 2023 e 2024, contagem oficial
-          de público, comprovação nominal pública para 2000 a 2022 e manual oficial
-          de identidade visual da SETI. Para 2026, há documentos oficiais de projeto e resumo,
-          mas alguns palestrantes e brindes ainda aparecem como aguardando confirmação ou em análise.
+          Ainda há ausência de programas completos de 2023 e 2024, contagem oficial de público,
+          comprovação nominal pública para 2000 a 2022 e manual oficial de identidade visual da SETI.
+          Para 2026, há documentos oficiais de projeto e resumo, mas alguns palestrantes e brindes
+          ainda aparecem como aguardando confirmação ou em análise.
         </p>
+      </section>
+
+      <section id="faq" class="section section-observe">
+        <div class="section-title center">
+          <p class="eyebrow">FAQ</p>
+          <h2>Perguntas frequentes</h2>
+        </div>
+        <div class="faq-list">
+          <details open>
+            <summary>O que é a SETI?</summary>
+            <p>A SETI é a Semana de Estudos Técnicos em Informática, evento técnico-escolar ligado ao curso de Informática.</p>
+          </details>
+          <details>
+            <summary>Quando acontece a SETI 2026?</summary>
+            <p>De 10 a 14 de agosto de 2026.</p>
+          </details>
+          <details>
+            <summary>Onde será realizada?</summary>
+            <p>No Auditório da Escola Municipal Dr. Leandro Franceschini.</p>
+          </details>
+          <details>
+            <summary>Quem organiza a SETI 2026?</summary>
+            <p>As turmas 4ª Informática A, 4ª Informática B e 4ª Informática C, com orientação do Prof. Luís Guilherme.</p>
+          </details>
+          <details>
+            <summary>Quais são os principais temas?</summary>
+            <p>IA, carreira em TI, tecnologia empresarial, programação, web, segurança digital, redes e mercado de trabalho.</p>
+          </details>
+          <details>
+            <summary>O que são as gincanas?</summary>
+            <p>Atividades interativas sobre tecnologia realizadas após as palestras, como Passa ou Repassa e Show da Tecnologia.</p>
+          </details>
+          <details>
+            <summary>A 4ª Informática C participa da organização?</summary>
+            <p>Sim. Em 2026, a 4ª Informática C participa oficialmente da organização junto com a 4ª A e a 4ª B.</p>
+          </details>
+        </div>
       </section>
     </main>
 
-    <button id="chat-toggle" class="chat-toggle" aria-label="Abrir chat">Chat</button>
+    <button id="back-to-top" class="back-to-top" aria-label="Voltar ao topo">↑</button>
+    <button id="chat-toggle" class="chat-toggle" aria-label="Abrir chat">Assistente</button>
 
     <section id="chat-widget" class="chat-widget hidden" aria-live="polite">
       <header class="chat-header">
@@ -162,9 +280,9 @@
       </div>
 
       <div class="quick-actions">
-        <button data-question="Qual é a história da SETI?">História</button>
         <button data-question="Quais são os dados oficiais da SETI 2026?">SETI 2026</button>
-        <button data-question="Quais temas a SETI aborda?">Temas</button>
+        <button data-question="Qual é a programação da SETI 2026?">Programação</button>
+        <button data-question="Quais são as gincanas da SETI?">Gincanas</button>
       </div>
 
       <form id="chat-form" class="chat-form">
@@ -172,6 +290,15 @@
         <button type="submit">Enviar</button>
       </form>
     </section>
+
+    <footer class="footer" id="assistente">
+      <div>
+        <strong>SETI 2026</strong>
+        <p>Semana de Estudos Técnicos em Informática</p>
+      </div>
+      <p>E.M. Dr. Leandro Franceschini, Sumaré/SP</p>
+      <p>Projeto desenvolvido por aluno da 4ª Informática C.</p>
+    </footer>
 
     <script src="script.js"></script>
   </body>
