@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const path = require('path');
 const express = require('express');
+const session = require('express-session');
 const OpenAI = require('openai');
 
 const app = express();
@@ -166,7 +167,56 @@ Regras de resposta:
 `;
 
 app.use(express.json());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'troque-este-segredo-no-env',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 4
+    }
+  })
+);
 app.use(express.static(path.join(__dirname, 'public')));
+
+const requireAdmin = (req, res, next) => {
+  if (req.session?.isAdmin) return next();
+  return res.status(401).json({ error: 'Acesso administrativo necessário.' });
+};
+
+app.get('/api/admin/status', (req, res) => {
+  res.json({ authenticated: Boolean(req.session?.isAdmin) });
+});
+
+app.post('/api/admin/login', (req, res) => {
+  const { password } = req.body;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+  if (!adminPassword) {
+    return res.status(500).json({ error: 'ADMIN_PASSWORD não configurada no servidor.' });
+  }
+
+  if (!password || password !== adminPassword) {
+    return res.status(401).json({ error: 'Senha administrativa inválida.' });
+  }
+
+  req.session.isAdmin = true;
+  return res.json({ success: true, message: 'Login realizado com sucesso.' });
+});
+
+app.post('/api/admin/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.clearCookie('connect.sid');
+    res.json({ success: true });
+  });
+});
+
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
+});
 
 app.post('/chat', async (req, res) => {
   try {
@@ -208,9 +258,8 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-// Importar e registrar rotas da API SETI
 const setiApi = require('./routes/seti-api');
-app.use('/api', setiApi);
+app.use('/api', setiApi({ requireAdmin }));
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
