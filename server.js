@@ -208,6 +208,10 @@ app.post('/chat', async (req, res) => {
   }
 });
 
+// Importar e registrar rotas da API SETI
+const setiApi = require('./routes/seti-api');
+app.use('/api', setiApi);
+
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
