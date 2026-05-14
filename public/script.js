@@ -12,14 +12,19 @@ const siteNav = document.getElementById('site-nav');
 const backToTop = document.getElementById('back-to-top');
 const observedSections = document.querySelectorAll('.section-observe');
 const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+const modal = document.getElementById('info-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalBody = document.getElementById('modal-body');
 
 const toggleChat = (open) => {
+  if (!chatWidget || !chatInput) return;
   const shouldOpen = typeof open === 'boolean' ? open : chatWidget.classList.contains('hidden');
   chatWidget.classList.toggle('hidden', !shouldOpen);
   if (shouldOpen) chatInput.focus();
 };
 
 const closeMenu = () => {
+  if (!siteNav || !menuToggle) return;
   siteNav.classList.remove('open');
   menuToggle.setAttribute('aria-expanded', 'false');
 };
@@ -33,7 +38,7 @@ const addMessage = (text, sender) => {
 };
 
 const sendMessage = async (message) => {
-  if (!message) return;
+  if (!message || !chatMessages) return;
 
   addMessage(message, 'user');
   chatInput.value = '';
@@ -63,11 +68,25 @@ const sendMessage = async (message) => {
   }
 };
 
-chatToggle.addEventListener('click', () => toggleChat());
-chatClose.addEventListener('click', () => toggleChat(false));
-openChatCta.addEventListener('click', () => toggleChat(true));
+const openModal = (title, body) => {
+  if (!modal || !modalTitle || !modalBody) return;
+  modalTitle.textContent = title;
+  modalBody.textContent = body;
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+};
 
-navChat.addEventListener('click', (event) => {
+const closeModal = () => {
+  if (!modal) return;
+  modal.classList.add('hidden');
+  document.body.style.overflow = '';
+};
+
+chatToggle?.addEventListener('click', () => toggleChat());
+chatClose?.addEventListener('click', () => toggleChat(false));
+openChatCta?.addEventListener('click', () => toggleChat(true));
+
+navChat?.addEventListener('click', (event) => {
   event.preventDefault();
   closeMenu();
   toggleChat(true);
@@ -80,13 +99,13 @@ quickActions.forEach((button) => {
   });
 });
 
-chatForm.addEventListener('submit', async (event) => {
+chatForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const message = chatInput.value.trim();
   await sendMessage(message);
 });
 
-menuToggle.addEventListener('click', () => {
+menuToggle?.addEventListener('click', () => {
   const isOpen = siteNav.classList.toggle('open');
   menuToggle.setAttribute('aria-expanded', String(isOpen));
 });
@@ -97,26 +116,50 @@ navLinks.forEach((link) => {
   });
 });
 
-backToTop.addEventListener('click', () => {
+backToTop?.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
+document.querySelectorAll('[data-modal-title]').forEach((element) => {
+  element.addEventListener('click', () => {
+    openModal(element.dataset.modalTitle, element.dataset.modalBody || 'Informação indisponível no momento.');
+  });
+});
 
-observedSections.forEach((section) => revealObserver.observe(section));
+document.querySelectorAll('[data-gallery-title]').forEach((element) => {
+  element.addEventListener('click', () => {
+    openModal(element.dataset.galleryTitle, element.dataset.galleryText || 'Espaço reservado para imagem do evento.');
+  });
+});
+
+document.querySelectorAll('[data-close-modal]').forEach((element) => {
+  element.addEventListener('click', closeModal);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeModal();
+});
+
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  observedSections.forEach((section) => revealObserver.observe(section));
+} else {
+  observedSections.forEach((section) => section.classList.add('visible'));
+}
 
 const handleScroll = () => {
-  backToTop.classList.toggle('visible', window.scrollY > 550);
+  backToTop?.classList.toggle('visible', window.scrollY > 550);
 
   const fromTop = window.scrollY + 120;
   navLinks.forEach((link) => {
