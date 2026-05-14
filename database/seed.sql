@@ -42,17 +42,17 @@ INSERT IGNORE INTO noticias (titulo, resumo, conteudo, publicado) VALUES
 ('SETI 2026 - Semana de Estudos Técnicos em Informática', 'O maior evento técnico do curso de Informática', 'A SETI 2026 será realizada de 10 a 14 de agosto de 2026 no Auditório da Escola Municipal Dr. Leandro Franceschini. O evento reunirá todas as turmas de Informática para palestras, gincanas e atividades técnicas. Organização: 4ª Informática A, B e C. Orientação: Prof. Luís Guilherme.', 1),
 ('Inscrições abertas para SETI 2026', 'Participe do maior evento de tecnologia da escola', 'Todas as turmas de Informática (1ª, 2ª, 3ª e 4ª) estão convidadas a participar da SETI 2026. Compareça com uniforme e traga sua energia para as competições! Horário das palestras: 19h30 às 21h15. Gincanas após o intervalo.', 1);
 
--- Inserir penalizações
-INSERT IGNORE INTO penalizacoes (turma_id, motivo, pontos_perdidos, observacao) VALUES
-(1, 'Dormir durante palestras ou atividades oficiais', 95, 'Tipo: Dormir'),
-(1, 'Conduta desrespeitosa ou uso de linguagem ofensiva', 90, 'Tipo: Conduta desrespeitosa'),
-(1, 'Uso de aparelho celular', 80, 'Tipo: Celular'),
-(1, 'Conduta inadequada durante deslocamento', 80, 'Tipo: Deslocamento'),
-(1, 'Descumprimento das normas de uniforme', 60, 'Tipo: Uniforme'),
-(1, 'Conversas paralelas', 50, 'Tipo: Conversa paralela'),
-(1, 'Deixar o local sujo no final do dia', 50, 'Tipo: Local sujo'),
-(1, 'Descumprimento de orientações da organização', 30, 'Tipo: Desobediência'),
-(1, 'Ausência no dia', 10, 'Tipo: Ausência');
+-- Inserir tipos de penalizações (catálogo - não são ocorrências, mas tipos disponíveis)
+INSERT IGNORE INTO tipos_penalizacoes (nome, descricao, pontos_padrao, ativo) VALUES
+('Dormir durante palestras ou atividades oficiais', 'Aluno dormindo durante palestras ou atividades oficiais do evento', 95, 1),
+('Conduta desrespeitosa ou uso de linguagem ofensiva', 'Comportamento desrespeitoso, linguagem ofensiva ou falta de educação', 90, 1),
+('Uso de aparelho celular', 'Uso de celular durante palestras ou atividades', 80, 1),
+('Conduta inadequada durante deslocamento', 'Comportamento inadequado durante deslocamento entre salas', 80, 1),
+('Descumprimento das normas de uniforme', 'Não estar com uniforme conforme solicitado', 60, 1),
+('Conversas paralelas', 'Conversas paralelas ou distrações durante atividades', 50, 1),
+('Deixar o local sujo no final do dia', 'Não manter a limpeza do local', 50, 1),
+('Descumprimento de orientações da organização', 'Não seguir instruções da organização', 30, 1),
+('Ausência no dia', 'Faltar no dia do evento', 10, 1);
 
 -- ============================================================================
 -- End of SETI 2026 Database Seed Data

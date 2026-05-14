@@ -3,20 +3,6 @@
 -- Semana de Estudos Técnicos em Informática
 -- ============================================================================
 
--- Tabela: users
--- Usuários autenticados no sistema (para painel administrativo)
-CREATE TABLE IF NOT EXISTS users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  openId VARCHAR(64) NOT NULL UNIQUE,
-  name TEXT,
-  email VARCHAR(320),
-  loginMethod VARCHAR(64),
-  role ENUM('user', 'admin') NOT NULL DEFAULT 'user',
-  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  lastSignedIn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- Tabela: turmas
 -- Organiza as turmas da escola para o evento SETI
 CREATE TABLE IF NOT EXISTS turmas (
@@ -125,16 +111,29 @@ CREATE TABLE IF NOT EXISTS pontuacao_gincanas (
   FOREIGN KEY (gincana_id) REFERENCES gincanas(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Tabela: tipos_penalizacoes
+-- Catálogo de tipos de penalizações disponíveis
+CREATE TABLE IF NOT EXISTS tipos_penalizacoes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL UNIQUE,
+  descricao TEXT,
+  pontos_padrao INT NOT NULL,
+  ativo BOOLEAN NOT NULL DEFAULT TRUE,
+  criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Tabela: penalizacoes
--- Penalizações e descontos de pontos das turmas
+-- Penalizações aplicadas a turmas (ocorrências)
 CREATE TABLE IF NOT EXISTS penalizacoes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   turma_id INT NOT NULL,
-  motivo VARCHAR(255) NOT NULL,
+  tipo_penalizacao_id INT NOT NULL,
   pontos_perdidos INT NOT NULL,
   observacao TEXT,
   criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (turma_id) REFERENCES turmas(id) ON DELETE CASCADE
+  FOREIGN KEY (turma_id) REFERENCES turmas(id) ON DELETE CASCADE,
+  FOREIGN KEY (tipo_penalizacao_id) REFERENCES tipos_penalizacoes(id) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================================
@@ -149,6 +148,8 @@ CREATE INDEX idx_participantes_turma ON participantes(turma_id);
 CREATE INDEX idx_pontuacao_turma ON pontuacao_gincanas(turma_id);
 CREATE INDEX idx_pontuacao_gincana ON pontuacao_gincanas(gincana_id);
 CREATE INDEX idx_penalizacoes_turma ON penalizacoes(turma_id);
+CREATE INDEX idx_penalizacoes_tipo ON penalizacoes(tipo_penalizacao_id);
+CREATE INDEX idx_tipos_penalizacoes_ativo ON tipos_penalizacoes(ativo);
 
 -- ============================================================================
 -- End of SETI 2026 Database Schema

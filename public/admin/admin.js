@@ -89,6 +89,36 @@ const resources = {
       ['mensagem', 'Mensagem', 'textarea'],
       ['respondida', 'Respondida', 'select', [['1', 'Sim'], ['0', 'Não']]]
     ]
+  },
+  tipos_penalizacoes: {
+    title: 'Tipos de Penalizações',
+    label: 'nome',
+    fields: [
+      ['nome', 'Nome'],
+      ['descricao', 'Descrição', 'textarea'],
+      ['pontos_padrao', 'Pontos padrão', 'number'],
+      ['ativo', 'Ativo', 'select', [['1', 'Sim'], ['0', 'Não']]]
+    ]
+  },
+  penalizacoes: {
+    title: 'Penalizações Aplicadas',
+    label: 'observacao',
+    fields: [
+      ['turma_id', 'ID da turma', 'number'],
+      ['tipo_penalizacao_id', 'ID do tipo', 'number'],
+      ['pontos_perdidos', 'Pontos perdidos', 'number'],
+      ['observacao', 'Observação', 'textarea']
+    ]
+  },
+  pontuacao_gincanas: {
+    title: 'Pontuação de Gincanas',
+    label: 'pontos',
+    fields: [
+      ['turma_id', 'ID da turma', 'number'],
+      ['gincana_id', 'ID da gincana', 'number'],
+      ['pontos', 'Pontos', 'number'],
+      ['observacao', 'Observação', 'textarea']
+    ]
   }
 };
 

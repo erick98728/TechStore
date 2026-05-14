@@ -1,4 +1,3 @@
-const chatToggle = document.getElementById('chat-toggle');
 const chatWidget = document.getElementById('chat-widget');
 const chatClose = document.getElementById('chat-close');
 const openChatCta = document.getElementById('open-chat-cta');
@@ -119,13 +118,20 @@ const bindModalElements = () => {
 const loadDynamicContent = async () => {
   const schedule = document.querySelector('.schedule.timeline-schedule');
   const activities = document.querySelector('#atividades .activity-grid');
+  const noticiasContainer = document.querySelector('#noticias .news-grid');
+  const palestrantesContainer = document.querySelector('#palestrantes .speakers-grid');
+  const pontuacaoContainer = document.querySelector('#pontuacao .ranking-table');
 
   try {
-    const [programacaoResponse, gincanasResponse] = await Promise.allSettled([
+    const [programacaoResponse, gincanasResponse, noticiasResponse, palestrantesResponse, pontuacaoResponse] = await Promise.allSettled([
       fetch('/api/programacao'),
-      fetch('/api/gincanas')
+      fetch('/api/gincanas'),
+      fetch('/api/noticias'),
+      fetch('/api/palestrantes'),
+      fetch('/api/pontuacao')
     ]);
 
+    // Programação
     if (schedule && programacaoResponse.status === 'fulfilled' && programacaoResponse.value.ok) {
       const programacao = await programacaoResponse.value.json();
       if (Array.isArray(programacao) && programacao.length) {
@@ -138,6 +144,7 @@ const loadDynamicContent = async () => {
       }
     }
 
+    // Gincanas
     if (activities && gincanasResponse.status === 'fulfilled' && gincanasResponse.value.ok) {
       const gincanas = await gincanasResponse.value.json();
       if (Array.isArray(gincanas) && gincanas.length) {
@@ -145,6 +152,39 @@ const loadDynamicContent = async () => {
           const icon = item.icone || '💡';
           const body = `${item.descricao || ''}${item.regras ? ` Regras: ${item.regras}` : ''}`.trim();
           return `<article data-modal-title="${escapeHtml(item.nome)}" data-modal-body="${escapeHtml(body || 'Atividade da SETI 2026.')}"><span>${escapeHtml(icon)}</span><h3>${escapeHtml(item.nome)}</h3><p>${escapeHtml(item.descricao || 'Atividade da SETI 2026.')}</p></article>`;
+        }).join('');
+      }
+    }
+
+    // Notícias
+    if (noticiasContainer && noticiasResponse.status === 'fulfilled' && noticiasResponse.value.ok) {
+      const noticias = await noticiasResponse.value.json();
+      if (Array.isArray(noticias) && noticias.length) {
+        noticiasContainer.innerHTML = noticias.map((item) => {
+          const body = `${item.conteudo || item.resumo || 'Notícia da SETI 2026.'}`;
+          return `<article data-modal-title="${escapeHtml(item.titulo)}" data-modal-body="${escapeHtml(body)}"><h3>${escapeHtml(item.titulo)}</h3><p>${escapeHtml(item.resumo || 'Notícia da SETI 2026.')}</p></article>`;
+        }).join('');
+      }
+    }
+
+    // Palestrantes
+    if (palestrantesContainer && palestrantesResponse.status === 'fulfilled' && palestrantesResponse.value.ok) {
+      const palestrantes = await palestrantesResponse.value.json();
+      if (Array.isArray(palestrantes) && palestrantes.length) {
+        palestrantesContainer.innerHTML = palestrantes.map((item) => {
+          const body = `${item.mini_bio || 'Palestrante da SETI 2026.'}${item.instagram ? ` Instagram: @${item.instagram}` : ''}${item.linkedin ? ` LinkedIn: ${item.linkedin}` : ''}`;
+          return `<article data-modal-title="${escapeHtml(item.nome)}" data-modal-body="${escapeHtml(body)}"><h3>${escapeHtml(item.nome)}</h3><p><strong>${escapeHtml(item.area || 'Palestrante')}</strong></p><p>${escapeHtml(item.mini_bio || 'Palestrante da SETI 2026.')}</p></article>`;
+        }).join('');
+      }
+    }
+
+    // Pontuação
+    if (pontuacaoContainer && pontuacaoResponse.status === 'fulfilled' && pontuacaoResponse.value.ok) {
+      const pontuacao = await pontuacaoResponse.value.json();
+      if (Array.isArray(pontuacao) && pontuacao.length) {
+        const sorted = pontuacao.sort((a, b) => (b.pontos || 0) - (a.pontos || 0));
+        pontuacaoContainer.innerHTML = sorted.map((item, index) => {
+          return `<tr><td>${index + 1}º</td><td>${escapeHtml(item.turma_nome || `Turma #${item.turma_id}`)}</td><td><strong>${item.pontos || 0}</strong> pontos</td></tr>`;
         }).join('');
       }
     }
